@@ -23,7 +23,7 @@ class PlayerActivity : AppCompatActivity() {
         val videoInfo = VideoInfo(url)
             .setShowTopBar(true)
             .setFullScreenOnly(true)
-            .setAspectRatio(VideoInfo.AR_ASPECT_FILL_PARENT)
+            .setAspectRatio(VideoInfo.AR_MATCH_PARENT)
 
         GiraffePlayer.play(this@PlayerActivity, videoInfo)
     }
