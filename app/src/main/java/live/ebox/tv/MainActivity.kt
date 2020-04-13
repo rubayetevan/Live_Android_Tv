@@ -23,11 +23,9 @@ class MainActivity : AppCompatActivity() {
         db.collection("channels").orderBy("name")
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data["name"]}")
-                }
                 channelRV?.layoutManager = GridLayoutManager(this, ((width / 120.0).roundToInt()))
                 channelRV?.adapter = ChannelAdapter(result, this@MainActivity)
+                channelRV?.adapter?.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)

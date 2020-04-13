@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.QuerySnapshot
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item.view.*
 
 
@@ -21,8 +22,14 @@ class ChannelAdapter(val items : QuerySnapshot, val context: Context) : Recycler
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.channelName?.text = items.documents[position]["name"] as String
-        holder?.channelName?.setOnClickListener {
+
+        try {
+            holder?.channelName?.text = items.documents[position]["name"] as String
+            Picasso.get().load(items.documents[position]["logo"] as String).into(holder.channelLogo)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        holder?.itemView?.setOnClickListener {
             val intent = Intent(context, PlayerActivity::class.java).apply {
                 putExtra("Url", items.documents[position]["url"] as String)
             }
@@ -33,5 +40,7 @@ class ChannelAdapter(val items : QuerySnapshot, val context: Context) : Recycler
 
 class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     // Holds the TextView that will add each animal to
-    val channelName = view.info_text
+    val channelLogo = view.logoIMGV
+    val channelName = view.channelNameTV
+    val parentLL = view.parentLL
 }
