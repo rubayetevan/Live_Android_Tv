@@ -46,7 +46,7 @@ dependencies {
 
     api 'com.github.tcking:giraffeplayer2:0.1.25-lazyLoad'
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 
 }

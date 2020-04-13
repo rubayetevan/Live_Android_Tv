@@ -1,33 +1,43 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="130dp"
-    android:padding="5dp"
-    android:layout_height="130dp"
-    android:background="?attr/selectableItemBackground"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="5dp"
+    android:backgroundTint="#FFFFFF"
     android:clickable="true"
-    android:orientation="vertical">
+    android:elevation="8dp"
+    android:foreground="@drawable/border"
+    android:minWidth="120dp"
+    android:minHeight="120dp"
+    android:orientation="vertical"
+    android:padding="5dp"
+    app:cardCornerRadius="4dp">
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:id="@+id/parentLL"
+        android:gravity="center"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:padding="1dp">
+        android:padding="5dp">
 
         <ImageView
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
             android:id="@+id/logoIMGV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:scaleType="center" />
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/channelNameTV"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-        android:gravity="center"
             android:layout_gravity="center"
-            android:textColor="#1833CA" />
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>
