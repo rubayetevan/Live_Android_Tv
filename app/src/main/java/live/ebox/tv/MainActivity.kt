@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
-    val TAG: String = "MainActivity"
+    private val TAG: String = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +34,10 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
-
     }
 
 
-    fun getScreenWidth(context: Context): Float {
-
-        val px = Resources.getSystem().getDisplayMetrics().widthPixels
-        return px / context.getResources().displayMetrics.density
+    private fun getScreenWidth(context: Context): Float {
+        return Resources.getSystem().displayMetrics.widthPixels / context.resources.displayMetrics.density
     }
 }
