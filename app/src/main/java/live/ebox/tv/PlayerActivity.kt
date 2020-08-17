@@ -12,7 +12,6 @@ import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.trackselection.TrackSelection
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
@@ -37,13 +36,10 @@ class PlayerActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val adaptiveTrackSelection: TrackSelection.Factory =
-            AdaptiveTrackSelection.Factory(DefaultBandwidthMeter())
-
         player = ExoPlayerFactory.newSimpleInstance(
             this,
             DefaultRenderersFactory(this),
-            DefaultTrackSelector(adaptiveTrackSelection),
+            DefaultTrackSelector(AdaptiveTrackSelection.Factory()),
             DefaultLoadControl()
         )
 
@@ -116,9 +112,9 @@ class PlayerActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
-        if (supportActionBar != null) {
-            supportActionBar!!.hide()
-        }
+
+        supportActionBar?.hide()
+
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         val params = video_view?.layoutParams
         params?.width = ViewGroup.LayoutParams.MATCH_PARENT
