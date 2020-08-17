@@ -1,11 +1,11 @@
-package live.ebox.tv
+package live.ebox.tv.ui
 
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
@@ -13,14 +13,14 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
-import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_player.*
+import live.ebox.tv.R
 
 
-class PlayerActivity : AppCompatActivity() {
+class PlayerActivity : FragmentActivity() {
 
     private var playWhenReady = true
     private var currentWindow = 0
@@ -43,21 +43,22 @@ class PlayerActivity : AppCompatActivity() {
             DefaultLoadControl()
         )
 
-        video_view.player = player
+        video_view?.player = player
 
         makePlayerFullScreen()
 
-        val dataSourceFactory: DataSource.Factory = DefaultDataSourceFactory(
-            this, Util.getUserAgent(this, "Exo2"), DefaultBandwidthMeter.Builder(this).build()
+        val dataSourceFactory = DefaultDataSourceFactory(
+            this,
+            Util.getUserAgent(this, "Exo2"),
+            DefaultBandwidthMeter.Builder(this).build()
         )
 
         val bundle = intent.extras
         val url = bundle!!.getString("Url")
 
         val uri: Uri = Uri.parse(url)
-        val contentType = Util.inferContentType(uri)
 
-        val mediaSource = if (contentType == C.TYPE_HLS) {
+        val mediaSource = if (Util.inferContentType(uri) == C.TYPE_HLS) {
             HlsMediaSource.Factory(dataSourceFactory)
                 .setAllowChunklessPreparation(true)
                 .createMediaSource(uri)
@@ -71,13 +72,17 @@ class PlayerActivity : AppCompatActivity() {
 
         player.addListener(object : Player.EventListener {
 
-            override fun onTimelineChanged(
-                timeline: Timeline,
-                manifest: Any?,
-                reason: Int
+            override fun onPlayerStateChanged(
+                playWhenReady: Boolean,
+                playbackState: Int
             ) {
+                when (playbackState) {
+                    ExoPlayer.STATE_READY -> loading?.visibility = View.GONE
+                    ExoPlayer.STATE_BUFFERING -> loading?.visibility = View.VISIBLE
+                }
             }
 
+            override fun onTimelineChanged(timeline: Timeline, manifest: Any?, reason: Int) {}
             override fun onTracksChanged(
                 trackGroups: TrackGroupArray,
                 trackSelections: TrackSelectionArray
@@ -85,17 +90,6 @@ class PlayerActivity : AppCompatActivity() {
             }
 
             override fun onLoadingChanged(isLoading: Boolean) {}
-
-            override fun onPlayerStateChanged(
-                playWhenReady: Boolean,
-                playbackState: Int
-            ) {
-                when (playbackState) {
-                    ExoPlayer.STATE_READY -> loading.visibility = View.GONE
-                    ExoPlayer.STATE_BUFFERING -> loading.visibility = View.VISIBLE
-                }
-            }
-
             override fun onRepeatModeChanged(repeatMode: Int) {}
             override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {}
             override fun onPlayerError(error: ExoPlaybackException) {}
@@ -113,7 +107,7 @@ class PlayerActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
 
-        supportActionBar?.hide()
+        //supportActionBar?.hide()
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         val params = video_view?.layoutParams
