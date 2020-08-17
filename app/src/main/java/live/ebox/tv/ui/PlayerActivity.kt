@@ -3,6 +3,8 @@ package live.ebox.tv.ui
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -26,6 +28,7 @@ class PlayerActivity : FragmentActivity() {
     private var currentWindow = 0
     private var playbackPosition: Long = 0
     private lateinit var player: SimpleExoPlayer
+    private var mediaType: Int = C.TYPE_HLS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +61,9 @@ class PlayerActivity : FragmentActivity() {
 
         val uri: Uri = Uri.parse(url)
 
-        val mediaSource = if (Util.inferContentType(uri) == C.TYPE_HLS) {
+        mediaType = Util.inferContentType(uri)
+
+        val mediaSource = if (mediaType == C.TYPE_HLS) {
             HlsMediaSource.Factory(dataSourceFactory)
                 .setAllowChunklessPreparation(true)
                 .createMediaSource(uri)
@@ -137,5 +142,39 @@ class PlayerActivity : FragmentActivity() {
         if (Util.SDK_INT > 23) {
             releasePlayer()
         }
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+
+        if (event?.action != KeyEvent.ACTION_DOWN)
+            return true
+
+        Log.d("dispatchKeyEvent", "Action =${event.keyCode}")
+
+        when (event.keyCode) {
+            22 -> {
+                if (mediaType != C.TYPE_HLS)
+                    player.seekTo(player.currentPosition + 15000)
+            }
+            21 -> {
+                if (mediaType != C.TYPE_HLS)
+                    player.seekTo(player.currentPosition - 15000)
+            }
+            4 -> {
+                onBackPressed()
+            }
+            23 -> {
+                player.playWhenReady = !player.playWhenReady
+            }
+            19 -> {
+                video_view?.showController()
+            }
+            20 -> {
+                video_view?.hideController()
+            }
+
+        }
+
+        return true
     }
 }
