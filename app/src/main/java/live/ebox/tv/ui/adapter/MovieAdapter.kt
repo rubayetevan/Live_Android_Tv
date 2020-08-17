@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.QuerySnapshot
 import com.squareup.picasso.Picasso
@@ -15,7 +14,7 @@ import live.ebox.tv.R
 import live.ebox.tv.ui.PlayerActivity
 
 
-class ChannelAdapter(private val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieViewHolder>() {
     private var items: QuerySnapshot? = null
 
     fun setData(dataList: QuerySnapshot?) {
@@ -27,17 +26,16 @@ class ChannelAdapter(private val context: Context) : RecyclerView.Adapter<ViewHo
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        return MovieViewHolder(
             LayoutInflater.from(context)
-                .inflate(R.layout.tv_item, parent, false)
+                .inflate(R.layout.movie_item, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
         try {
-            holder.channelName?.text = items?.documents?.get(position)?.get("name") as String
             Picasso.get().load(items?.documents?.get(position)?.get("logo") as String)
                 .into(holder.channelLogo)
         } catch (e: Exception) {
@@ -52,7 +50,6 @@ class ChannelAdapter(private val context: Context) : RecyclerView.Adapter<ViewHo
     }
 }
 
-class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val channelLogo: ImageView? = view.logoIMGV
-    val channelName: TextView? = view.channelNameTV
 }

@@ -46,5 +46,25 @@ class Repository private constructor(context: Context) {
         return data
     }
 
+    fun getMovieList(): MutableLiveData<QuerySnapshot> {
+        val data = MutableLiveData<QuerySnapshot>()
+
+        db.collection("movies")
+            .addSnapshotListener { snapshot: QuerySnapshot?, e: FirebaseFirestoreException? ->
+                if (e != null) {
+                    Log.w(TAG, "MovieList Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null) {
+                    data.postValue(snapshot)
+                } else {
+                    Log.d(TAG, "MovieList data: null")
+                }
+            }
+
+        return data
+    }
+
 
 }
