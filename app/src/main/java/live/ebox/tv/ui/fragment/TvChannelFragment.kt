@@ -1,4 +1,4 @@
-package live.ebox.tv.ui
+package live.ebox.tv.ui.fragment
 
 import android.content.Context
 import android.os.Bundle

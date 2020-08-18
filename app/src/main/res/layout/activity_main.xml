@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="ui.MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00BCD4"
-        app:tabSelectedTextColor="#000000"
-        app:tabTextColor="#FFFFFF"></com.google.android.material.tabs.TabLayout>
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="#959292" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

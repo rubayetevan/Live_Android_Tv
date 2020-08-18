@@ -46,10 +46,10 @@ class Repository private constructor(context: Context) {
         return data
     }
 
-    fun getMovieList(): MutableLiveData<QuerySnapshot> {
+    fun getMovieList(category: Int): MutableLiveData<QuerySnapshot> {
         val data = MutableLiveData<QuerySnapshot>()
 
-        db.collection("movies")
+        db.collection("movies").whereEqualTo("cat", category)
             .addSnapshotListener { snapshot: QuerySnapshot?, e: FirebaseFirestoreException? ->
                 if (e != null) {
                     Log.w(TAG, "MovieList Listen failed.", e)

@@ -1,4 +1,4 @@
-package live.ebox.tv.ui
+package live.ebox.tv.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -18,7 +18,7 @@ import live.ebox.tv.ui.adapter.MovieAdapter
 import live.ebox.tv.ui.viewModel.HomeViewModel
 import kotlin.math.roundToInt
 
-class MovieFragment : Fragment() {
+class MovieFragment(private val category: Int) : Fragment() {
 
     private val homeViewModel: HomeViewModel by activityViewModels()
     private lateinit var movieAdapter: MovieAdapter
@@ -41,10 +41,10 @@ class MovieFragment : Fragment() {
         progressBar?.visibility = View.VISIBLE
         movieRV?.visibility = View.GONE
         movieRV?.layoutManager =
-            GridLayoutManager(context, ((Util.getScreenWidth(context) / 110.0).roundToInt()))
+            GridLayoutManager(context, ((Util.getScreenWidth(context) / 180.0).roundToInt()))
         movieAdapter = MovieAdapter(context)
         movieRV?.adapter = movieAdapter
-        homeViewModel.getMovieList().observe(viewLifecycleOwner, movieListObserver)
+        homeViewModel.getMovieList(category).observe(viewLifecycleOwner, movieListObserver)
     }
 
     private val movieListObserver = Observer<QuerySnapshot> {

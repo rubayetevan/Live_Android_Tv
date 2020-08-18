@@ -1,4 +1,4 @@
-package live.ebox.tv.ui
+package live.ebox.tv.ui.activity
 
 import android.content.pm.ActivityInfo
 import android.net.Uri

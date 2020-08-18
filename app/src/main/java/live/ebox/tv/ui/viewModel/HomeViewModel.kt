@@ -11,6 +11,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = Repository.getInstance(application.applicationContext)
 
     fun getTvChannelList(): MutableLiveData<QuerySnapshot> = repository.getTVChannelList()
-    fun getMovieList(): MutableLiveData<QuerySnapshot> = repository.getMovieList()
+    fun getMovieList(category: Int): MutableLiveData<QuerySnapshot> =
+        repository.getMovieList(category)
 
 }

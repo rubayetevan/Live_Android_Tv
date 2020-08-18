@@ -12,7 +12,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.tv_item.view.*
 import live.ebox.tv.R
-import live.ebox.tv.ui.PlayerActivity
+import live.ebox.tv.ui.activity.PlayerActivity
 
 
 class ChannelAdapter(private val context: Context) : RecyclerView.Adapter<ViewHolder>() {

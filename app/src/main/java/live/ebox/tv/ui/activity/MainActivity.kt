@@ -1,4 +1,4 @@
-package live.ebox.tv.ui
+package live.ebox.tv.ui.activity
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
@@ -15,8 +15,12 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.activity_main)
 
 
-        tabLayout?.addTab(tabLayout.newTab().setText("TV"))
-        tabLayout?.addTab(tabLayout.newTab().setText("Movie"))
+        tabLayout?.addTab(tabLayout.newTab().setText("Live TV"))
+        tabLayout?.addTab(tabLayout.newTab().setText("Hindi Movie"))
+        tabLayout?.addTab(tabLayout.newTab().setText("English Movie"))
+        tabLayout?.addTab(tabLayout.newTab().setText("Bangla Movie"))
+        tabLayout?.addTab(tabLayout.newTab().setText("Animated Movie"))
+        tabLayout?.addTab(tabLayout.newTab().setText("Tamil Movie"))
 
         tabLayout?.tabGravity = TabLayout.GRAVITY_FILL
 
