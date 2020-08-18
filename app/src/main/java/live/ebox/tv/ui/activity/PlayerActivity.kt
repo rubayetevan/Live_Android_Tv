@@ -3,8 +3,6 @@ package live.ebox.tv.ui.activity
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -144,7 +142,7 @@ class PlayerActivity : FragmentActivity() {
         }
     }
 
-    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+    /*override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
 
         if (event?.action != KeyEvent.ACTION_DOWN)
             return true
@@ -176,5 +174,5 @@ class PlayerActivity : FragmentActivity() {
         }
 
         return true
-    }
+    }*/
 }
