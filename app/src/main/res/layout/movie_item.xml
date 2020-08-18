@@ -8,8 +8,8 @@
     android:clickable="true"
     android:elevation="8dp"
     android:foreground="@drawable/border"
-    android:minWidth="171dp"
-    android:minHeight="255dp"
+    android:minWidth="154dp"
+    android:minHeight="225dp"
     android:orientation="vertical"
     android:layout_marginBottom="3dp"
     app:cardCornerRadius="4dp">
@@ -27,8 +27,8 @@
             android:background="#FFFFFF"
             android:backgroundTint="#FFFFFF"
             android:id="@+id/logoIMGV"
-            android:layout_width="167dp"
-            android:layout_height="250dp"
+            android:layout_width="150dp"
+            android:layout_height="220dp"
             android:layout_gravity="center"
             android:scaleType="fitXY" />
 

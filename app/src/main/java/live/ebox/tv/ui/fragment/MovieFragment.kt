@@ -41,7 +41,7 @@ class MovieFragment(private val category: Int) : Fragment() {
         progressBar?.visibility = View.VISIBLE
         movieRV?.visibility = View.GONE
         movieRV?.layoutManager =
-            GridLayoutManager(context, ((Util.getScreenWidth(context) / 180.0).roundToInt()))
+            GridLayoutManager(context, ((Util.getScreenWidth(context) / 154.0).roundToInt()))
         movieAdapter = MovieAdapter(context)
         movieRV?.adapter = movieAdapter
         homeViewModel.getMovieList(category).observe(viewLifecycleOwner, movieListObserver)
